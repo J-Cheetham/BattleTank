@@ -18,5 +18,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 //Pointer to a tank with method to 
 public:
 	ATank* GetControlledTank() const;
+
+	virtual void BeginPlay() override;
 };
 
