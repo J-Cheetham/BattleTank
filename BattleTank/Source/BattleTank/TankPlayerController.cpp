@@ -53,22 +53,43 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
-	//Find crosshair position in pixel coordinates
+	//Find crosshair position in pixel coordinates that adapt to changing screen sizes
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-
-	//Adapts to changing screen sizes
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrossHairXLocation, ViewportSizeY * CrossHairYLocation);
 
-	FVector WorldLocation;
-	FVector WorldDirection;
-
-	if (DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, WorldDirection))
+	//Uses deprojection to get direction the player is looking
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *WorldDirection.ToString());
+		//Line trace along that look direction and see what we hit
+		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-
-	//De-Project the screen position of the crosshair to a world direction
-	//Line trace along that look direction and see what we hit
 	return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector WorldLocation; //Gets discarded
+	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
+	{
+		//Access location for our Out parameter
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	else
+	{
+		//To avoid random readings when aiming at skybox
+		HitLocation = FVector(0);
+		return false;
+	}
 }
