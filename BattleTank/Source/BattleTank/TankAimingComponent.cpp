@@ -62,7 +62,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		//Convert to unit vector
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		UE_LOG(LogTemp, Warning, TEXT("Aim Direction: %s"), *AimDirection.ToString())
 		MoveBarrel(AimDirection);
 		MoveTurret(AimDirection);
 	}

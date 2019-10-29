@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "Tank.h"
 
+
 // Sets default values
 ATank::ATank()
 {
@@ -53,5 +54,9 @@ void ATank::Fire()
 	if (!Barrel) { return; }
 
 	//spawn the projectile from the end of the barrel
-	GetWorld()->SpawnActor<AProjectile>(Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+
+	Projectile->LaunchProjectile(LaunchSpeed);
+
+
 }
