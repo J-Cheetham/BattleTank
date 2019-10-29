@@ -13,10 +13,6 @@ void ATankAIController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AI Tank cannot find player tank"));
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Controller found player: %s"), *(PlayerTank->GetName()))
-	}
 }
 
 void ATankAIController::Tick(float DeltaTime)
