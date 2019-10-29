@@ -17,13 +17,13 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
-	if (!Barrel) { return; }
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
 }
 
 void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 {
-	if (!Turret) { return; }
+	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
 
@@ -62,9 +62,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		//Convert to unit vector
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("Aim Direction: %s"), *AimDirection.ToString())
 		MoveBarrel(AimDirection);
-		//MoveTurret(AimDirection);
+		MoveTurret(AimDirection);
 	}
 }
 
@@ -76,13 +76,13 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
 	Barrel->ElevateBarrel(DeltaRotator.Pitch);
-	Turret->RotateTurret(DeltaRotator.Yaw);
+	//Turret->RotateTurret(DeltaRotator.Yaw);
 }
 
-//void UTankAimingComponent::MoveTurret(FVector AimDirection)
-//{
-//	auto TurretRotator = Turret->GetForwardVector().Rotation(); //It might not be the forward vector, double check.
-//	auto AimDirectionRotator = AimDirection.Rotation();
-//	auto DeltaTurretRotator = AimDirectionRotator - TurretRotator;
-//	Turret->RotateTurret(DeltaTurretRotator.Yaw);
-//}
+void UTankAimingComponent::MoveTurret(FVector AimDirection)
+{
+	auto TurretRotator = Turret->GetForwardVector().Rotation();
+	auto AimDirectionRotator = AimDirection.Rotation();
+	auto DeltaTurretRotator = AimDirectionRotator - TurretRotator;
+	Turret->RotateTurret(DeltaTurretRotator.Yaw);
+}

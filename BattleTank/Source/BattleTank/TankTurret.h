@@ -22,15 +22,4 @@ private:
 
 UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxDegreesPerSecond = 20;
-
-//Use below if the rotation needs to have a min and a max
-
-//UPROPERTY(EditAnywhere, Category = Setup)
-//	float MaxElevation = 30;
-//
-//UPROPERTY(EditAnywhere, Category = Setup)
-//	float MinElevation = 0;
-
-
-
 };
