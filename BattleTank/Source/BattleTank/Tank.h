@@ -42,7 +42,7 @@ private:
 	ATank();
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 100000; //1000 m/s 
+	float LaunchSpeed = 1000; //1000 m/s 
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;

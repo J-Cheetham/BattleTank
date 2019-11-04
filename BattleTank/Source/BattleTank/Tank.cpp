@@ -55,9 +55,7 @@ void ATank::Fire()
 		// spawn the projectile from the end of the barrel
 		//auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
 
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f, tank fires projectile of name %s"), Time, *ProjectileBlueprint->GetName())
-
+		//auto Time = GetWorld()->GetTimeSeconds();
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
 
 		Projectile->LaunchProjectile(LaunchSpeed);
