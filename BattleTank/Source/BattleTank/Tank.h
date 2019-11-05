@@ -36,7 +36,7 @@ protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	//Tank is referencing the TankMovementComponent class
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Input)
+	UPROPERTY(BlueprintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:	
