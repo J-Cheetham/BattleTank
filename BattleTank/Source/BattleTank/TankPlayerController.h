@@ -18,8 +18,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 
 //Pointer to a tank with method to 
 public:
-	ATank* GetControlledTank() const;
-
+	
 	virtual void BeginPlay() override;
 
 	// Called every frame
@@ -42,5 +41,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000;
+
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
 };
 
