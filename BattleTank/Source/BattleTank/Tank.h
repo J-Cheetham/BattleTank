@@ -33,6 +33,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	//Tank is referencing the TankAimingComponent class
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	//Tank is referencing the TankMovementComponent class

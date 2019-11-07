@@ -30,15 +30,17 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	//unit vector showing the direction that the AI tank intends to move
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 
-	UE_LOG(LogTemp, Warning, TEXT("AI tank wanting to move in direction: %s"), *AIForwardIntention.ToString())
-
 	//direction the tank is currently facing
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal(); 
+
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s. AI Forward Intention %s"), *(GetOwner()->GetName()), *AIForwardIntention.ToString())
 
 	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(ForwardThrow);
 
 	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 	IntendTurnRight(RightThrow);
+
+	//UE_LOG(LogTemp, Warning, TEXT("AI tank ForwardThrow: %f. Right Throw: %f"), ForwardThrow, RightThrow)
 	
 }
