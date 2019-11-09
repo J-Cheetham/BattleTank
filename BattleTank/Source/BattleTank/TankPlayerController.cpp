@@ -10,27 +10,13 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(AimingComponent))
-	{
-		FoundAimingComponent(AimingComponent);
-	}
-	else
-	{
-		UE_LOG(LogTemp,Warning, TEXT("Player controller can't find the aiming component at begin play"))
-	}
-
+	if (!ensure(AimingComponent)) { return; }
 	FoundAimingComponent(AimingComponent);
-
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 
 	auto ControlledTank = GetControlledTank();
 	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank"));
-	}
-	else
-	{
-		//(LogTemp, Warning, TEXT("PlayerController possessing %s"), *(ControlledTank->GetName()));
 	}
 }
 
