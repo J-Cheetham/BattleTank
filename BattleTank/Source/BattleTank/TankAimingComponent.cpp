@@ -50,7 +50,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	//auto BarrelLocation = Barrel->GetComponentLocation().ToString();
 	if (!ensure(Barrel)) { return;}
 
-	FVector OutLaunchVelocity(0);
+	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	
 	//Calculates launch velocity. False if no solution
@@ -105,6 +105,6 @@ bool UTankAimingComponent::IsBarrelMoving()
 	if (!ensure(Barrel)) { return false; }
 	auto BarrelForward = Barrel->GetForwardVector();
 
-	UE_LOG(LogTemp, Warning, TEXT("Aim Direction: %s. Barrel Direction: %s."), *AimDirection.ToString(), *BarrelForward.ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("Aim Direction: %s. Barrel Direction: %s."), *AimDirection.ToString(), *BarrelForward.ToString())
 	return !BarrelForward.Equals(AimDirection, 0.1);
 }
