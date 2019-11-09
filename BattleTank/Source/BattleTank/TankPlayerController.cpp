@@ -3,35 +3,27 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
 	}
-	else
-	{
-		UE_LOG(LogTemp,Warning, TEXT("Player controller can't find the aiming component at begin play"))
-	}
 
-	FoundAimingComponent(AimingComponent);
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
-
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank"));
-	}
-	else
-	{
-		//(LogTemp, Warning, TEXT("PlayerController possessing %s"), *(ControlledTank->GetName()));
-	}
+	//auto ControlledTank = GetPawn();
+	//if (!ControlledTank)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank"));
+	//}
+	//else
+	//{
+	//	//(LogTemp, Warning, TEXT("PlayerController possessing %s"), *(ControlledTank->GetName()));
+	//}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -40,22 +32,15 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	//Gets the pawn and casts it to the identified ATank
-	return Cast<ATank>(GetPawn());
-	
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; //Out parameter
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 
 
