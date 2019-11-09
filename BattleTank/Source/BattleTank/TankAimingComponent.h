@@ -10,6 +10,7 @@
 //Forward declaration
 class UTankBarrel; 
 class UTankTurret;
+class AProjectile;
 
 UENUM()
 enum class EFiringState : uint8
@@ -30,8 +31,8 @@ public:
 
 	void AimAt(FVector HitLocation);
 
-	void MoveBarrel(FVector AimDirection);
-	void MoveTurret(FVector AimDirection);
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
 
 protected:
 
@@ -42,9 +43,20 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	void MoveBarrel(FVector AimDirection);
+	void MoveTurret(FVector AimDirection);
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 1000; //1000 m/s 
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
 };
