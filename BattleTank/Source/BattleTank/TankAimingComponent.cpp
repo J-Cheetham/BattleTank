@@ -96,7 +96,6 @@ void UTankAimingComponent::Fire()
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
 
 		Projectile->LaunchProjectile(LaunchSpeed);
-
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }
@@ -105,5 +104,7 @@ bool UTankAimingComponent::IsBarrelMoving()
 {
 	if (!ensure(Barrel)) { return false; }
 	auto BarrelForward = Barrel->GetForwardVector();
-	return !BarrelForward.Equals(AimDirection, 0.01);
+
+	UE_LOG(LogTemp, Warning, TEXT("Aim Direction: %s. Barrel Direction: %s."), *AimDirection.ToString(), *BarrelForward.ToString())
+	return !BarrelForward.Equals(AimDirection, 0.1);
 }
