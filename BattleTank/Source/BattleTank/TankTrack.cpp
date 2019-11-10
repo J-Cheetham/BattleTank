@@ -16,10 +16,11 @@ void UTankTrack::BeginPlay()
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
+	//If no movement, check 'simulation generates hit events' is enabled in BP
 	DriveTrack();
 	ApplySidewaysForce();
 	CurrentThrottle = 0;
-	UE_LOG(LogTemp, Warning, TEXT("Hitting"))
+	
 }
 
 void UTankTrack::ApplySidewaysForce()
@@ -38,7 +39,6 @@ void UTankTrack::ApplySidewaysForce()
 void UTankTrack::SetThrottle(float Throttle)
 {
 	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
-	
 }
 
 void UTankTrack::DriveTrack()

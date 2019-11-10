@@ -44,10 +44,6 @@ void ATankPlayerController::AimTowardsCrosshair()
 		AimingComponent->AimAt(HitLocation);
 	}
 
-
-	//Get world location through crosshair
-	//If it hits the landscape, tell the controlled tank to aim there
-
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
@@ -62,9 +58,9 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		//Line trace along that look direction and see what we hit
-		GetLookVectorHitLocation(LookDirection, HitLocation);
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-	return true;
+	return false;
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
