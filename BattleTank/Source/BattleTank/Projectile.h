@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
+#include "GameFramework/DamageType.h"
 #include "Projectile.generated.h"
 
 
@@ -51,4 +52,7 @@ void OnTimerExpire();
 
 UPROPERTY(EditDefaultsOnly, Category = "Setup")
 float DestroyDelay = 10.f;
+
+UPROPERTY(EditDefaultsOnly, Category = "Setup")
+float ProjectileDamage = 20.f;
 };
