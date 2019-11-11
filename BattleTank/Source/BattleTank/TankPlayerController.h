@@ -26,6 +26,9 @@ public:
 
 	void AimTowardsCrosshair();
 
+	UFUNCTION()
+	void OnControlledTankDeath();
+
 private:
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 
@@ -41,6 +44,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000;
+
+	void SetPawn(APawn* InPawn);
 
 protected:
 
