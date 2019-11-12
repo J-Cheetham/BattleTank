@@ -71,23 +71,23 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	}
 }
 
-void UTankAimingComponent::MoveBarrel(FVector AimDirection)
+void UTankAimingComponent::MoveBarrel(FVector TargetAimDirection)
 {
 	if (!ensure(Barrel)) { return; }
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
+	auto AimAsRotator = TargetAimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
 	Barrel->ElevateBarrel(DeltaRotator.Pitch);
 	//Turret->RotateTurret(DeltaRotator.Yaw);
 }
 
-void UTankAimingComponent::MoveTurret(FVector AimDirection)
+void UTankAimingComponent::MoveTurret(FVector TargetAimDirection)
 {
 
 	if (!ensure(Turret)) { return; }
 	auto TurretRotator = Turret->GetForwardVector().Rotation();
-	auto AimDirectionRotator = AimDirection.Rotation();
+	auto AimDirectionRotator = TargetAimDirection.Rotation();
 	auto DeltaTurretRotator = AimDirectionRotator - TurretRotator;
 
 	//Move in yaw the shortest way
