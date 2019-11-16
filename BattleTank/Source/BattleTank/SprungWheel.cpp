@@ -43,8 +43,14 @@ void ASprungWheel::Tick(float DeltaTime)
 void ASprungWheel::SetupConstaint()
 {
 	if (!GetAttachParentActor()) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("Attached to: %s"), *GetAttachParentActor()->GetName())
 	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
 	if (!BodyRoot) { return; }
 	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle, NAME_None);
 	MassWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
+}
+
+void ASprungWheel::AddDrivingForce(float ForceMagnitude)
+{
+	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
 }
