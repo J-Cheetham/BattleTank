@@ -52,8 +52,9 @@ void ASprungWheel::SetupConstaint()
 	if (!GetAttachParentActor()) { return; }
 	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
 	if (!BodyRoot) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("Body Root is: %s"), *BodyRoot->GetName())
 	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle, NAME_None);
-	MassWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
+	AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
 }
 
 void ASprungWheel::AddDrivingForce(float ForceMagnitude)
