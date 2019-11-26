@@ -28,8 +28,13 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
 	//unit vector showing the direction that the AI tank intends to move
-	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	auto TankName = GetOwner()->GetName();
+	auto MoveVelocityString = MoveVelocity.ToString();
+	
 
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	auto AiForwardIntentionX = AIForwardIntention.X;
+	UE_LOG(LogTemp, Warning, TEXT("%s is vectoring to %f"), *TankName, AiForwardIntentionX)
 	//direction the tank is currently facing
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal(); 
 
