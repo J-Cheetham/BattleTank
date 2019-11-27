@@ -62,5 +62,5 @@ void ASprungBlock_BP::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActo
 void ASprungBlock_BP::ApplyForce()
 {
 	Wheel->AddForce(Wheel->GetForwardVector() * TotalForceMagnitudeThisFrame);
-	UE_LOG(LogTemp, Warning, TEXT("Force Applied: %f"), TotalForceMagnitudeThisFrame)
+	//UE_LOG(LogTemp, Warning, TEXT("Force Applied: %f"), TotalForceMagnitudeThisFrame)
 }
