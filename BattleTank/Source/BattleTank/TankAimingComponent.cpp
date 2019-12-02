@@ -76,10 +76,9 @@ void UTankAimingComponent::MoveBarrel(FVector TargetAimDirection)
 	if (!ensure(Barrel)) { return; }
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = TargetAimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	auto DeltaRotator = (AimAsRotator) - BarrelRotator;
 
 	Barrel->ElevateBarrel(DeltaRotator.Pitch);
-	//Turret->RotateTurret(DeltaRotator.Yaw);
 }
 
 void UTankAimingComponent::MoveTurret(FVector TargetAimDirection)
@@ -88,11 +87,14 @@ void UTankAimingComponent::MoveTurret(FVector TargetAimDirection)
 	if (!ensure(Turret)) { return; }
 	auto TurretRotator = Turret->GetForwardVector().Rotation();
 	auto AimDirectionRotator = TargetAimDirection.Rotation();
+	
 	auto DeltaTurretRotator = AimDirectionRotator - TurretRotator;
+	UE_LOG(LogTemp, Warning, TEXT("Aim Direction %f. Delta Rotator %f"), AimDirectionRotator.Yaw, DeltaTurretRotator.Yaw)
+
 	//Move in yaw the shortest way
 	if (FMath::Abs(DeltaTurretRotator.Yaw) < 180)
 	{
-		Turret->RotateTurret(-DeltaTurretRotator.Yaw);
+		Turret->RotateTurret(DeltaTurretRotator.Yaw);
 	}
 	else
 	{

@@ -31,7 +31,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto TankName = GetOwner()->GetName();
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto AIForwardIntention = MoveVelocity;
-	UE_LOG(LogTemp, Warning, TEXT("%s is vectoring to %s"), *TankName, *AIForwardIntention.ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("%s is vectoring to %s"), *TankName, *AIForwardIntention.ToString())
 
 	
 	//UE_LOG(LogTemp, Warning, TEXT("Tank %s. AI Forward Intention %s"), *(GetOwner()->GetName()), *AIForwardIntention.ToString())
